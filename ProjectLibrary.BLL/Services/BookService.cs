@@ -1,5 +1,6 @@
 ﻿using ProjectLibrary.BLL.Entities;
 using ProjectLibrary.BLL.Mappers;
+using ProjectLibrary.Common.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Text;
 
 namespace ProjectLibrary.BLL.Services
 {
-    public class BookService
+    public class BookService : IBookRepository<Book>
     {
-        private readonly DAL.Services.BookService _dalService;
+        private readonly IBookRepository<DAL.Entities.Book> _dalService;
 
-        public BookService(DAL.Services.BookService dalService)
+        public BookService(IBookRepository<DAL.Entities.Book> dalService)
         {
             _dalService = dalService;
         }
