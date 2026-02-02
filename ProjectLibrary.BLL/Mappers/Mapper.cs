@@ -40,5 +40,40 @@ namespace ProjectLibrary.BLL.Mappers
             };
         }
         #endregion
+
+        #region UserProfile
+
+        public static BLL.Entities.UserProfile ToBLL(this DAL.Entities.UserProfile entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new BLL.Entities.UserProfile(
+                entity.UserProfileId,
+                entity.LastName,
+                entity.FirstName,
+                entity.BirthDate,
+                entity.Biography,
+                entity.ReadingSkill,
+                entity.NewsLetterSubscribed,
+                entity.RegisteredDate,
+                entity.DisabledDate
+                );
+        }
+
+        public static DAL.Entities.UserProfile ToDAL(this BLL.Entities.UserProfile entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new DAL.Entities.UserProfile() { 
+                UserProfileId = entity.UserProfileId,
+                LastName = entity.LastName,
+                FirstName = entity.FirstName,
+                BirthDate = entity.BirthDate,
+                Biography = entity.Biography,
+                ReadingSkill = (byte?)entity.ReadingSkill,
+                NewsLetterSubscribed = entity.NewsLetterSubscribed,
+                RegisteredDate = entity.RegisteredDate,
+                DisabledDate = entity.DisabledDate
+            };
+        }
+        #endregion
     }
 }
