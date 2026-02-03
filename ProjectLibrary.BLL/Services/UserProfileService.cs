@@ -10,9 +10,9 @@ namespace ProjectLibrary.BLL.Services
 {
     public class UserProfileService : IUserProfileRepository<UserProfile>
     {
-        private readonly DAL.Services.UserProfileService _dalService;
+        private readonly IUserProfileRepository<DAL.Entities.UserProfile> _dalService;
 
-        public UserProfileService(DAL.Services.UserProfileService dalService)
+        public UserProfileService(IUserProfileRepository<DAL.Entities.UserProfile> dalService)
         {
             _dalService = dalService;
         }
