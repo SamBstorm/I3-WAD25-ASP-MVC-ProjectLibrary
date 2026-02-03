@@ -2,26 +2,22 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Dictionary<string, ushort> selectValues = new Dictionary<string, ushort>();
+    for (int i = 1; i < 6; i++)
+    {
+        selectValues.Add(i.ToString(), (ushort)i);
+    }
+    selectValues.Add(">5", 6);
 }
 
 <h1>Edit</h1>
 
-<h4>EditForm</h4>
+<h4>Que modifier au profile de "@Model.LastName @Model.FirstName" ?</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Biography" class="control-label"></label>
                 <textarea asp-for="Biography" class="form-control"></textarea>
@@ -29,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ReadingSkill" class="control-label"></label>
-                <input asp-for="ReadingSkill" class="form-control" />
+                <select asp-for="ReadingSkill" asp-items="selectValues.Select(sv => new SelectListItem(sv.Key,sv.Value.ToString()))"></select>
                 <span asp-validation-for="ReadingSkill" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
