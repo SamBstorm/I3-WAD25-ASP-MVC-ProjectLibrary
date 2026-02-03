@@ -69,5 +69,76 @@
             };
         }
         #endregion
+        #region UserProfile
+        public static Models.UserProfile.ListItemViewModel ToListItem(this BLL.Entities.UserProfile entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new Models.UserProfile.ListItemViewModel()
+            {
+                UserProfileId = entity.UserProfileId,
+                LastName = entity.LastName,
+                FirstName = entity.FirstName
+            };
+        }
+        public static Models.UserProfile.DetailsViewModel ToDetails(this BLL.Entities.UserProfile entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new Models.UserProfile.DetailsViewModel()
+            {
+                LastName = entity.LastName,
+                FirstName = entity.FirstName,
+                YearsOld = entity.YearsOld,
+                Biography = entity.Biography,
+                ReadingSkill = entity.ReadingSkill,
+                RegisterDaysCounter = entity.RegisterDaysCounter,
+                NewsLetterSubscribed = entity.NewsLetterSubscribed
+            };
+        }
+        public static BLL.Entities.UserProfile ToBLL(this Models.UserProfile.CreateForm entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new BLL.Entities.UserProfile(
+                entity.LastName,
+                entity.FirstName,
+                entity.BirthDate,
+                entity.NewsLetterSubscribed);
+        }
+        public static BLL.Entities.UserProfile ToBLL(this Models.UserProfile.EditForm entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new BLL.Entities.UserProfile(
+                Guid.NewGuid(),
+                entity.LastName,
+                entity.FirstName, 
+                new DateTime(),
+                entity.Biography,
+                (byte?)entity.ReadingSkill,
+                entity.NewsLetterSubscribed,
+                DateTime.Now,
+                null);
+        }
+        public static Models.UserProfile.EditForm ToEdit(this BLL.Entities.UserProfile entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new Models.UserProfile.EditForm()
+            {
+                LastName = entity.LastName,
+                FirstName = entity.FirstName,
+                Biography = entity.Biography,
+                ReadingSkill = entity.ReadingSkill,
+                NewsLetterSubscribed = entity.NewsLetterSubscribed
+            };
+        }
+        public static Models.UserProfile.DeleteViewModel ToDelete(this BLL.Entities.UserProfile entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new Models.UserProfile.DeleteViewModel()
+            {
+
+                LastName = entity.LastName,
+                FirstName = entity.FirstName
+            };
+        }
+        #endregion
     }
 }
