@@ -1,3 +1,4 @@
+using Microsoft.Data.SqlClient;
 using ProjectLibrary.Common.Repositories;
 
 namespace ProjectLibrary.ASPMVC
@@ -8,10 +9,19 @@ namespace ProjectLibrary.ASPMVC
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Récupération de la connectionstring du fichier appsettings.json
+            string connectionString = builder.Configuration.GetConnectionString("ProjectLibrary.Database")!;
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             // Ajouts de nos services
+
+            // Injection de dépendance d'un SqlConnection avec la connectionString
+            builder.Services.AddScoped<SqlConnection>(serviceProdiver =>
+            new SqlConnection(connectionString));
+            
+            // Injection de dépendance de nos services
             builder.Services.AddScoped<IBookRepository<BLL.Entities.Book>, BLL.Services.BookService>();
             builder.Services.AddScoped<IBookRepository<DAL.Entities.Book>, DAL.Services.BookService>();
             
