@@ -14,6 +14,9 @@ namespace ProjectLibrary.ASPMVC
             // Ajouts de nos services
             builder.Services.AddScoped<IBookRepository<BLL.Entities.Book>, BLL.Services.BookService>();
             builder.Services.AddScoped<IBookRepository<DAL.Entities.Book>, DAL.Services.BookService>();
+            
+            //En cas d'utilisation d'un FakeService permettant de ne pas avoir l'accès en DB
+            //builder.Services.AddScoped<IBookRepository<DAL.Entities.Book>, DAL.Services.FakeBookService>();
 
             var app = builder.Build();
 
