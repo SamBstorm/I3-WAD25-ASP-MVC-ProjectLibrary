@@ -1,5 +1,6 @@
 ﻿using ProjectLibrary.BLL.Entities;
 using ProjectLibrary.BLL.Mappers;
+using ProjectLibrary.Common.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace ProjectLibrary.BLL.Services
 {
-    public class UserProfileService
+    public class UserProfileService : IUserProfileRepository<UserProfile>
     {
         private readonly DAL.Services.UserProfileService _dalService;
 
