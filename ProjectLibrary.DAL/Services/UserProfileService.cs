@@ -37,14 +37,14 @@ namespace ProjectLibrary.DAL.Services
             }
         }
 
-        public UserProfile Get(Guid userProfileId)
+        public UserProfile Get(Guid id)
         {
 
             using (SqlCommand command = _connection.CreateCommand())
             {
                 command.CommandText = "SP_UserProfile_Get_ById";
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue(nameof(userProfileId), userProfileId);
+                command.Parameters.AddWithValue(nameof(id), id);
                 _connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -52,7 +52,7 @@ namespace ProjectLibrary.DAL.Services
                     {
                         return reader.ToUserProfile();
                     }
-                    throw new ArgumentOutOfRangeException(nameof(userProfileId));
+                    throw new ArgumentOutOfRangeException(nameof(id));
                 }
                 _connection.Close();
             }
