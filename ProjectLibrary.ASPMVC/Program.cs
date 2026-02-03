@@ -24,7 +24,9 @@ namespace ProjectLibrary.ASPMVC
             // Injection de dépendance de nos services
             builder.Services.AddScoped<IBookRepository<BLL.Entities.Book>, BLL.Services.BookService>();
             builder.Services.AddScoped<IBookRepository<DAL.Entities.Book>, DAL.Services.BookService>();
-            
+            builder.Services.AddScoped<IUserProfileRepository<BLL.Entities.UserProfile>, BLL.Services.UserProfileService>();
+            builder.Services.AddScoped<IUserProfileRepository<DAL.Entities.UserProfile>, DAL.Services.UserProfileService>();
+
             //En cas d'utilisation d'un FakeService permettant de ne pas avoir l'accès en DB
             //builder.Services.AddScoped<IBookRepository<DAL.Entities.Book>, DAL.Services.FakeBookService>();
 
