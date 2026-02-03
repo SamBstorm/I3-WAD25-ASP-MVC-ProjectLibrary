@@ -18,7 +18,14 @@ namespace ProjectLibrary.ASPMVC.Controllers
         // GET: BookController
         public ActionResult Index()
         {
-            IEnumerable<ListItemViewModel> model = _bllService.Get().Select(bll => bll.ToListItem());
+            IEnumerable<ListItemViewModel> model;
+            // Analyse Hypotétique : traitement de filtrage sans procédure stockée définie
+            //if (User.IsAdmin) { 
+                model = _bllService.Get().Select(bll => bll.ToListItem());
+            //}
+            //else {
+                //model = _bllService.Get().Where(bll => bll.IsActive).Select(bll => bll.ToListItem());
+            //}
             return View(model);
         }
 
@@ -38,11 +45,13 @@ namespace ProjectLibrary.ASPMVC.Controllers
         // POST: BookController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CreateForm form)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid) throw new InvalidOperationException("Le formulaire n'est pas valide.");
+                Guid bookId = _bllService.Create(form.ToBLL());
+                return RedirectToAction(nameof(Details),"Book",new {id = bookId});
             }
             catch
             {
@@ -51,19 +60,22 @@ namespace ProjectLibrary.ASPMVC.Controllers
         }
 
         // GET: BookController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
-            return View();
+            EditForm model = _bllService.Get(id).ToEdit();
+            return View(model);
         }
 
         // POST: BookController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Guid id, EditForm form)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid) throw new InvalidOperationException("Le formulaire n'est pas valide");
+                _bllService.Update(id, form.ToBLL());
+                return RedirectToAction(nameof(Details),"Book", new { id });
             }
             catch
             {
@@ -72,18 +84,20 @@ namespace ProjectLibrary.ASPMVC.Controllers
         }
 
         // GET: BookController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
-            return View();
+            DeleteViewModel model = _bllService.Get(id).ToDelete();
+            return View(model);
         }
 
         // POST: BookController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(Guid id, IFormCollection collection)
         {
             try
             {
+                _bllService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
