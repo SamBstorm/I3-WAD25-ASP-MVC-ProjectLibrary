@@ -1,4 +1,10 @@
-﻿@model ProjectLibrary.ASPMVC.Models.UserProfile.EditForm
+﻿@*
+    @using ProjectLibrary.BLL.Entities
+    @using ProjectLibrary.Common.Repositories
+    @inject IUserProfileRepository<UserProfile> userProfileService
+*@
+
+@model ProjectLibrary.ASPMVC.Models.UserProfile.EditForm
 
 @{
     ViewData["Title"] = "Edit";
@@ -9,10 +15,13 @@
         selectValues.Add(i.ToString(), (ushort)i);
     }
     selectValues.Add(">5", 6);
+    @*Guid userProfileId = Guid.Parse(ViewContext.RouteData.Values["id"]!.ToString());
+    UserProfile bllEntity = userProfileService.Get(userProfileId);*@
 }
 
 <h1>Edit</h1>
 
+@* <h4>Que modifier au profile de "@bllEntity.LastName @bllEntity.FirstName" ?</h4> *@
 <h4>Que modifier au profile de "@ViewData["UserName"]" ?</h4>
 <hr />
 <div class="row">

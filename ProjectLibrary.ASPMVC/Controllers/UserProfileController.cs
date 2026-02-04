@@ -55,7 +55,7 @@ namespace ProjectLibrary.ASPMVC.Controllers
         public ActionResult Edit(Guid id)
         {
             BLL.Entities.UserProfile entity = _userProfileService.Get(id);
-            ViewData["UserName"] = $"{entity.LastName} {entity.FirstName}";
+            //ViewData["UserName"] = $"{entity.LastName} {entity.FirstName}";
             Models.UserProfile.EditForm model = entity.ToEdit();
             return View(model);
         }
