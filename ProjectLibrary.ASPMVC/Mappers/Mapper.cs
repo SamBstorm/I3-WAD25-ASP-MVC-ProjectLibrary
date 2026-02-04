@@ -106,7 +106,7 @@
         public static BLL.Entities.UserProfile ToBLL(this Models.UserProfile.EditForm entity)
         {
             if (entity is null) throw new ArgumentNullException(nameof(entity));
-            return new BLL.Entities.UserProfile(
+            /*return new BLL.Entities.UserProfile(
                 Guid.NewGuid(),
                 "Connor",
                 "Sarah", 
@@ -115,7 +115,11 @@
                 (byte?)entity.ReadingSkill,
                 entity.NewsLetterSubscribed,
                 DateTime.Now,
-                null);
+                null);*/
+            return new BLL.Entities.UserProfile(
+                entity.Biography,
+                entity.ReadingSkill, 
+                entity.NewsLetterSubscribed);
         }
         public static Models.UserProfile.EditForm ToEdit(this BLL.Entities.UserProfile entity)
         {

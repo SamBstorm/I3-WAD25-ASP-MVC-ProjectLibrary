@@ -90,6 +90,13 @@ namespace ProjectLibrary.BLL.Entities
             DisabledDate = disabledDate;
         }
 
+        public UserProfile(string? biography, ushort? readingSkill, bool newsletterSubscribed)
+        {
+            Biography = biography;
+            ReadingSkill = readingSkill;
+            NewsLetterSubscribed = newsletterSubscribed;
+        }
+
         public void Disable()
         {
             DisabledDate = DateTime.Now;
