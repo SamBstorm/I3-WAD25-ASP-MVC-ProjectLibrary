@@ -75,5 +75,29 @@ namespace ProjectLibrary.BLL.Mappers
             };
         }
         #endregion
+
+        #region User
+        public static BLL.Entities.User ToBLL(this DAL.Entities.User entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new BLL.Entities.User(
+                entity.UserId,
+                entity.Email,
+                entity.Password,
+                entity.RegisteredDate,
+                entity.DisabledDate);
+        }
+        public static DAL.Entities.User ToDAL(this BLL.Entities.User entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new DAL.Entities.User() {
+                UserId = entity.UserId,
+                Email = entity.Email,
+                Password = entity.Password,
+                RegisteredDate = entity.RegisteredDate,
+                DisabledDate = entity.DisabledDate
+                };
+        }
+        #endregion
     }
 }

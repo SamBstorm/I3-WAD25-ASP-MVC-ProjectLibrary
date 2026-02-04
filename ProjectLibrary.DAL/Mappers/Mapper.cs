@@ -39,5 +39,18 @@ namespace ProjectLibrary.DAL.Mappers
                 DisabledDate = (record[nameof(UserProfile.DisabledDate)] is DBNull)?null:(DateTime?)record[nameof(UserProfile.DisabledDate)]
             };
         }
+    
+        public static User ToUser(this IDataRecord record)
+        {
+            if (record is null) throw new ArgumentNullException(nameof(record));
+            return new User()
+            {
+                UserId = (Guid)record[nameof(User.UserId)],
+                Email = (string)record[nameof(User.Email)],
+                Password = "********",
+                RegisteredDate = (DateTime)record[nameof(User.RegisteredDate)],
+                DisabledDate = (record[nameof(User.DisabledDate)] is DBNull) ? null : (DateTime?)record[nameof(User.DisabledDate)],
+            };
+        }
     }
 }
