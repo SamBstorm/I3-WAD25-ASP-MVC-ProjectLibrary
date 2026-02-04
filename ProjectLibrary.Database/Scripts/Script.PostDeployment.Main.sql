@@ -10,4 +10,5 @@ Modèle de script de post-déploiement
 --------------------------------------------------------------------------------------
 */
 :r .\Script.PostDeployment.Book.sql
+:r .\Script.PostDeployment.User.sql
 :r .\Script.PostDeployment.UserProfile.sql
