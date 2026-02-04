@@ -15,6 +15,22 @@ namespace ProjectLibrary.ASPMVC
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // Ajouts des services nécessaires aux sessions
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+                {
+                    options.Cookie.Name = "LibraryProject.Session";
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.IsEssential = true;
+                    options.IdleTimeout = TimeSpan.FromMinutes(2);
+                });
+            builder.Services.Configure<CookiePolicyOptions>(options =>
+                {
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                    options.Secure = CookieSecurePolicy.Always;
+                });
+
             // Ajouts de nos services
 
             // Injection de dépendance d'un SqlConnection avec la connectionString
@@ -41,6 +57,9 @@ namespace ProjectLibrary.ASPMVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSession();
+            app.UseCookiePolicy();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
