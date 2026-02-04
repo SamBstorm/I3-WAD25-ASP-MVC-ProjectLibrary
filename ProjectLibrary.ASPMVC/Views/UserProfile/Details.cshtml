@@ -44,15 +44,18 @@
             @Html.DisplayNameFor(model => model.ReadingSkill)
         </dt>
         <dd class = "col-sm-10">
-            @if(Model.ReadingSkill > 5)
+            @if(Model.ReadingSkill is null)
             {
-                <span>&gt;5</span>
+                <span>Non renseigné</span>
+            }
+            else if(Model.ReadingSkill > 5)
+            {
+                <span>&gt;5 livre(s) / mois</span>
             }
             else
             {
-                <span>@Model.ReadingSkill</span>
+                <span>@Model.ReadingSkill livre(s) / mois</span>
             }
-            <span> livre(s) / mois</span>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NewsLetterSubscribed)

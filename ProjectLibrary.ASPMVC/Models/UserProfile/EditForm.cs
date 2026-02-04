@@ -5,10 +5,6 @@ namespace ProjectLibrary.ASPMVC.Models.UserProfile
 {
     public class EditForm
     {
-        [DisplayName("Nom de famille : ")]
-        public string LastName { get; set; }
-        [DisplayName("Prénom : ")]
-        public string FirstName { get; set; }
         [DisplayName("Biographie : ")]
         [DataType(DataType.MultilineText)]
         [MaxLength(512, ErrorMessage = "La biographie ne peut dépasser 512 caractères.")]

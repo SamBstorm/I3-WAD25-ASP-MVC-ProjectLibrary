@@ -108,8 +108,8 @@
             if (entity is null) throw new ArgumentNullException(nameof(entity));
             return new BLL.Entities.UserProfile(
                 Guid.NewGuid(),
-                entity.LastName,
-                entity.FirstName, 
+                "Connor",
+                "Sarah", 
                 new DateTime(),
                 entity.Biography,
                 (byte?)entity.ReadingSkill,
@@ -122,8 +122,6 @@
             if (entity is null) throw new ArgumentNullException(nameof(entity));
             return new Models.UserProfile.EditForm()
             {
-                LastName = entity.LastName,
-                FirstName = entity.FirstName,
                 Biography = entity.Biography,
                 ReadingSkill = entity.ReadingSkill,
                 NewsLetterSubscribed = entity.NewsLetterSubscribed
