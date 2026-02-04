@@ -22,7 +22,6 @@ namespace ProjectLibrary.ASPMVC.Models.Auth
         [Compare(nameof(Password), ErrorMessage = "Le mot de passe ne correspond pas.")]
         public string ConfirmPassword { get; set; }
         [DisplayName("J'accepte les termes des conditions d'utilisation de notre site.")]
-        [Required(ErrorMessage = "Vous ne pouvez continuer sans accepter les conditions.")]
         public bool AgreeTerms { get; set; }
     }
 }

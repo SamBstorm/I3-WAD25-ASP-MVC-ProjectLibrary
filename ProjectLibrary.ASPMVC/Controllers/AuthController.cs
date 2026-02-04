@@ -30,6 +30,7 @@ namespace ProjectLibrary.ASPMVC.Controllers
         {
             try
             {
+                if (!form.AgreeTerms) ModelState.AddModelError(nameof(form.AgreeTerms), "Les conditions doivent être acceptées.");
                 if (!ModelState.IsValid) throw new InvalidOperationException("Le formulaire n'est pas valide.");
                 Guid userId = _bllService.Create(form.ToBLL());
                 return RedirectToAction("Login");
