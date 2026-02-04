@@ -16,6 +16,10 @@ namespace ProjectLibrary.ASPMVC
             builder.Services.AddControllersWithViews();
 
             // Ajouts des services nécessaires aux sessions
+                // Donne accès à l'HttpContext dans n'importe quelle class => SessionManager
+            builder.Services.AddHttpContextAccessor();
+
+                // Configuration des cookies de sessions
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
                 {
