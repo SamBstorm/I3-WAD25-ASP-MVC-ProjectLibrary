@@ -142,5 +142,16 @@
             };
         }
         #endregion
+        #region User
+        public static BLL.Entities.User ToBLL(this Models.Auth.RegisterForm entity) {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new BLL.Entities.User(entity.Email,entity.Password);
+        }
+        public static BLL.Entities.User ToBLL(this Models.Auth.LoginForm entity) {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new BLL.Entities.User(entity.Email,entity.Password);
+        }
+        #endregion
+
     }
 }

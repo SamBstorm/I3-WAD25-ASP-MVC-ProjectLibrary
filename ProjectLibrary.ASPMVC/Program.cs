@@ -26,6 +26,8 @@ namespace ProjectLibrary.ASPMVC
             builder.Services.AddScoped<IBookRepository<DAL.Entities.Book>, DAL.Services.BookService>();
             builder.Services.AddScoped<IUserProfileRepository<BLL.Entities.UserProfile>, BLL.Services.UserProfileService>();
             builder.Services.AddScoped<IUserProfileRepository<DAL.Entities.UserProfile>, DAL.Services.UserProfileService>();
+            builder.Services.AddScoped<IUserRepository<BLL.Entities.User>, BLL.Services.UserService>();
+            builder.Services.AddScoped<IUserRepository<DAL.Entities.User>, DAL.Services.UserService>();
 
             //En cas d'utilisation d'un FakeService permettant de ne pas avoir l'accès en DB
             //builder.Services.AddScoped<IBookRepository<DAL.Entities.Book>, DAL.Services.FakeBookService>();
