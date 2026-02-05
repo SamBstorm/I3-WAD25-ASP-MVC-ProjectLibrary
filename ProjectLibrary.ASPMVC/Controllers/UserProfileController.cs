@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectLibrary.ASPMVC.Handlers.Filters;
 using ProjectLibrary.ASPMVC.Mappers;
 using ProjectLibrary.Common.Repositories;
 
 namespace ProjectLibrary.ASPMVC.Controllers
 {
+    [TypeFilter<RequiredAuthenticationFilter>]
     public class UserProfileController : Controller
     {
         private readonly IUserProfileRepository<BLL.Entities.UserProfile> _userProfileService;

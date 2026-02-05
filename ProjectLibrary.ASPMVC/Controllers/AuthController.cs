@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectLibrary.ASPMVC.Handlers;
+using ProjectLibrary.ASPMVC.Handlers.Filters;
 using ProjectLibrary.ASPMVC.Mappers;
 using ProjectLibrary.ASPMVC.Models.Auth;
 using ProjectLibrary.Common.Repositories;
@@ -25,12 +26,14 @@ namespace ProjectLibrary.ASPMVC.Controllers
         }
 
         [HttpGet]
+        [TypeFilter<AnonymousFilter>]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [TypeFilter<AnonymousFilter>]
         public IActionResult Register(RegisterForm form)
         {
             try
@@ -47,12 +50,14 @@ namespace ProjectLibrary.ASPMVC.Controllers
         }
 
         [HttpGet]
+        [TypeFilter<AnonymousFilter>]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [TypeFilter<AnonymousFilter>]
         public IActionResult Login(LoginForm form)
         {
             try
@@ -68,12 +73,14 @@ namespace ProjectLibrary.ASPMVC.Controllers
             }
         }
 
+        [TypeFilter<RequiredAuthenticationFilter>]
         [HttpGet]
         public IActionResult Logout()
         {
             return View();
         }
 
+        [TypeFilter<RequiredAuthenticationFilter>]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Logout(IFormCollection collection)

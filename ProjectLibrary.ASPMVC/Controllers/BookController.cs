@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectLibrary.ASPMVC.Handlers.Filters;
 using ProjectLibrary.ASPMVC.Mappers;
 using ProjectLibrary.ASPMVC.Models.Book;
 using ProjectLibrary.Common.Repositories;
 
 namespace ProjectLibrary.ASPMVC.Controllers
 {
+    [TypeFilter<RequiredAuthenticationFilter>]
     public class BookController : Controller
     {
         private readonly IBookRepository<BLL.Entities.Book> _bllService;
