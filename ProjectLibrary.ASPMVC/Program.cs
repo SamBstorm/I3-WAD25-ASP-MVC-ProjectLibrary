@@ -12,6 +12,7 @@ namespace ProjectLibrary.ASPMVC
 
             // Récupération de la connectionstring du fichier appsettings.json
             string connectionString = builder.Configuration.GetConnectionString("ProjectLibrary.Database")!;
+            string sessionConnectionString = builder.Configuration.GetConnectionString("ProjectLibrary.Session")!;
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -22,8 +23,16 @@ namespace ProjectLibrary.ASPMVC
                 // Ajout d'injection de dépendance pour une accessibilité simplifié de notre session
             builder.Services.AddScoped<UserSessionManager>();
 
-                // Configuration des cookies de sessions
+            // Configuration des cookies de sessions
             builder.Services.AddDistributedMemoryCache();
+
+                // Si phase de production, alors activer le SQLServer Cache au lieu du Memory Cache
+            /*builder.Services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = sessionConnectionString;
+                options.SchemaName = builder.Configuration.GetSection("SessionInfos").GetValue<String>("SchemaName");
+                options.TableName = builder.Configuration.GetSection("SessionInfos").GetValue<String>("TableName");
+            });*/
             builder.Services.AddSession(options =>
                 {
                     options.Cookie.Name = "LibraryProject.Session";
