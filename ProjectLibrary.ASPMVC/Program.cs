@@ -1,4 +1,5 @@
 using Microsoft.Data.SqlClient;
+using ProjectLibrary.ASPMVC.Handlers;
 using ProjectLibrary.Common.Repositories;
 
 namespace ProjectLibrary.ASPMVC
@@ -18,6 +19,8 @@ namespace ProjectLibrary.ASPMVC
             // Ajouts des services nécessaires aux sessions
                 // Donne accès à l'HttpContext dans n'importe quelle class => SessionManager
             builder.Services.AddHttpContextAccessor();
+                // Ajout d'injection de dépendance pour une accessibilité simplifié de notre session
+            builder.Services.AddScoped<UserSessionManager>();
 
                 // Configuration des cookies de sessions
             builder.Services.AddDistributedMemoryCache();

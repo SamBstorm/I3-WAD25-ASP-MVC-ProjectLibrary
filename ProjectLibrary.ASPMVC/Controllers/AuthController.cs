@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectLibrary.ASPMVC.Handlers;
 using ProjectLibrary.ASPMVC.Mappers;
 using ProjectLibrary.ASPMVC.Models.Auth;
 using ProjectLibrary.Common.Repositories;
@@ -8,10 +9,14 @@ namespace ProjectLibrary.ASPMVC.Controllers
     public class AuthController : Controller
     {
         private readonly IUserRepository<BLL.Entities.User> _bllService;
+        private readonly UserSessionManager _userSession;
 
-        public AuthController(IUserRepository<BLL.Entities.User> bllService)
+        public AuthController(
+            IUserRepository<BLL.Entities.User> bllService,
+            UserSessionManager userSession)
         {
             _bllService = bllService;
+            _userSession = userSession;
         }
 
         public IActionResult Index()
@@ -54,7 +59,30 @@ namespace ProjectLibrary.ASPMVC.Controllers
             {
                 if (!ModelState.IsValid) throw new InvalidOperationException("Le formulaire n'est pas valide.");
                 Guid id = _bllService.CheckPassword(form.Email, form.Password);
+                _userSession.UserId = id;
                 return RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout(IFormCollection collection)
+        {
+            try
+            {
+                if (!ModelState.IsValid) throw new InvalidOperationException();
+                _userSession.UserId = null;
+                return RedirectToAction(nameof(Login));
             }
             catch (Exception)
             {
