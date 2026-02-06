@@ -91,6 +91,8 @@ namespace ProjectLibrary.ASPMVC.Mappers
                 FirstName = entity.FirstName,
                 YearsOld = entity.YearsOld,
                 Biography = entity.Biography,
+                FavoriteBookId = entity.FavoriteBook?.BookId,
+                FavoriteBookTitle = entity.FavoriteBook?.Title,
                 ReadingSkill = entity.ReadingSkill,
                 RegisterDaysCounter = entity.RegisterDaysCounter,
                 NewsLetterSubscribed = entity.NewsLetterSubscribed

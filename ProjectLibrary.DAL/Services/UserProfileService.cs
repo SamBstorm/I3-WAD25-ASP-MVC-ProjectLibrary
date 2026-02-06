@@ -26,14 +26,13 @@ namespace ProjectLibrary.DAL.Services
                 command.CommandText = "SP_UserProfile_Get_All";
                 command.CommandType = CommandType.StoredProcedure;
                 _connection.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     while (reader.Read())
                     {
                         yield return reader.ToUserProfile();
                     }
                 }
-                _connection.Close();
             }
         }
 
@@ -46,7 +45,7 @@ namespace ProjectLibrary.DAL.Services
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue(nameof(id), id);
                 _connection.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     if (reader.Read())
                     {
@@ -54,7 +53,6 @@ namespace ProjectLibrary.DAL.Services
                     }
                     throw new ArgumentOutOfRangeException(nameof(id));
                 }
-                _connection.Close();
             }
 
         }

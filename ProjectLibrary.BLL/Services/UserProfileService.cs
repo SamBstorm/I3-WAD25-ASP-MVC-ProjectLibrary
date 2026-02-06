@@ -11,10 +11,14 @@ namespace ProjectLibrary.BLL.Services
     public class UserProfileService : IUserProfileRepository<UserProfile>
     {
         private readonly IUserProfileRepository<DAL.Entities.UserProfile> _dalService;
+        private readonly IBookRepository<Book> _bookService;
 
-        public UserProfileService(IUserProfileRepository<DAL.Entities.UserProfile> dalService)
+        public UserProfileService(
+            IUserProfileRepository<DAL.Entities.UserProfile> dalService, 
+            IBookRepository<Book> bookService)
         {
             _dalService = dalService;
+            _bookService = bookService;
         }
 
         public IEnumerable<UserProfile> Get()
@@ -24,7 +28,8 @@ namespace ProjectLibrary.BLL.Services
 
         public UserProfile Get(Guid userProfileId)
         {
-            return _dalService.Get(userProfileId).ToBLL();
+            DAL.Entities.UserProfile dalEntity = _dalService.Get(userProfileId);
+            return dalEntity.ToBLL((dalEntity.FavoriteBook is null) ? null : _bookService.Get((Guid)dalEntity.FavoriteBook));
         }
 
         public Guid Create(UserProfile entity)
@@ -40,6 +45,11 @@ namespace ProjectLibrary.BLL.Services
         public void Delete(Guid userProfileId)
         {
             _dalService.Delete(userProfileId);
+        }
+
+        public void SetFavoriteBook(Guid userProfileId, Guid? bookId)
+        {
+            _dalService.SetFavoriteBook(userProfileId, bookId);
         }
     }
 }

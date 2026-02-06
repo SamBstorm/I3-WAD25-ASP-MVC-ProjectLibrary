@@ -40,6 +40,16 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Biography)
         </dd>
+        <a asp-action="SetFavoriteBook" asp-route-id="@ViewContext.RouteData.Values["id"]" class="btn btn-primary">Modifier livre favoris</a>
+        @if(Model.FavoriteBookId is not null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FavoriteBookTitle)
+            </dt>
+            <dd class="col-sm-10">
+                <a asp-action="Details" asp-controller="Book" asp-route-id="@Model.FavoriteBookId">@Model.FavoriteBookTitle</a>
+            </dd>
+        }
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ReadingSkill)
         </dt>

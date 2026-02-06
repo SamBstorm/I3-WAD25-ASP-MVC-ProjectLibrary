@@ -62,6 +62,8 @@ namespace ProjectLibrary.BLL.Entities
                 _readingSkill = value;
             } 
         }
+        public Book? FavoriteBook { get; set; }
+
         public bool NewsLetterSubscribed { get; set; }
         public DateTime RegisteredDate { get; private set; }
         public uint RegisterDaysCounter

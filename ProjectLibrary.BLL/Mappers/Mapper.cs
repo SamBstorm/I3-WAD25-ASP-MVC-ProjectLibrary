@@ -43,10 +43,10 @@ namespace ProjectLibrary.BLL.Mappers
 
         #region UserProfile
 
-        public static BLL.Entities.UserProfile ToBLL(this DAL.Entities.UserProfile entity)
+        public static BLL.Entities.UserProfile ToBLL(this DAL.Entities.UserProfile entity, BLL.Entities.Book? book = null)
         {
             if (entity is null) throw new ArgumentNullException(nameof(entity));
-            return new BLL.Entities.UserProfile(
+            BLL.Entities.UserProfile userProfile =  new BLL.Entities.UserProfile(
                 entity.UserProfileId,
                 entity.LastName,
                 entity.FirstName,
@@ -57,6 +57,8 @@ namespace ProjectLibrary.BLL.Mappers
                 entity.RegisteredDate,
                 entity.DisabledDate
                 );
+            userProfile.FavoriteBook = book;
+            return userProfile;
         }
 
         public static DAL.Entities.UserProfile ToDAL(this BLL.Entities.UserProfile entity)
@@ -69,6 +71,7 @@ namespace ProjectLibrary.BLL.Mappers
                 BirthDate = entity.BirthDate,
                 Biography = entity.Biography,
                 ReadingSkill = (byte?)entity.ReadingSkill,
+                FavoriteBook = entity.FavoriteBook?.BookId,
                 NewsLetterSubscribed = entity.NewsLetterSubscribed,
                 RegisteredDate = entity.RegisteredDate,
                 DisabledDate = entity.DisabledDate

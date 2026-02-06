@@ -1,0 +1,18 @@
+﻿@using ProjectLibrary.Common.Repositories
+@inject IBookRepository<ProjectLibrary.BLL.Entities.Book> bookService;
+
+@{
+    List<SelectListItem> options = new List<SelectListItem>();
+    options.Add(new SelectListItem("Aucun livre", null));
+    IEnumerable<ProjectLibrary.BLL.Entities.Book> books = bookService.Get();
+    foreach (var book in books)
+    {
+        options.Add(new SelectListItem(book.Title, book.BookId.ToString()));
+    }
+}
+
+<form method="post">
+    <select name="bookId" asp-items="options"></select>
+    <button type="submit" class="btn btn-outline-primary">Sauvegarder</button>
+    <a asp-action="Details" asp-controller="UserProfile" asp-route-id="@ViewContext.RouteData.Values["id"]" class="btn btn-outline-secondary">Annuler</a>
+</form>

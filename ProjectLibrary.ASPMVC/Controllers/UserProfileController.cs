@@ -101,5 +101,25 @@ namespace ProjectLibrary.ASPMVC.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public IActionResult SetFavoriteBook(Guid id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SetFavoriteBook(Guid id, Guid? bookId)
+        {
+            try
+            {
+                _userProfileService.SetFavoriteBook(id, bookId);
+                return RedirectToAction(nameof(Details), "UserProfile", new { id });
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
     }
 }
