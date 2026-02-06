@@ -35,6 +35,7 @@ namespace ProjectLibrary.DAL.Mappers
                 Biography = (record[nameof(UserProfile.Biography)] is DBNull)? null: (string?)record[nameof(UserProfile.Biography)],
                 ReadingSkill = (record[nameof(UserProfile.ReadingSkill)] is DBNull)? null: (byte?)record[nameof(UserProfile.ReadingSkill)],
                 NewsLetterSubscribed = (bool)record[nameof(UserProfile.NewsLetterSubscribed)],
+                FavoriteBook = (record[nameof(UserProfile.FavoriteBook)] is DBNull) ? null : (Guid?)record[nameof(UserProfile.FavoriteBook)],
                 RegisteredDate = (DateTime)record[nameof(UserProfile.RegisteredDate)],
                 DisabledDate = (record[nameof(UserProfile.DisabledDate)] is DBNull)?null:(DateTime?)record[nameof(UserProfile.DisabledDate)]
             };

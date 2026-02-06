@@ -11,5 +11,6 @@ namespace ProjectLibrary.Common.Repositories
         public Guid Create(TUserProfile entity);
         public void Update(Guid id, TUserProfile entity);
         public void Delete(Guid id);
+        public void SetFavoriteBook(Guid userProfileId, Guid? bookId);
     }
 }

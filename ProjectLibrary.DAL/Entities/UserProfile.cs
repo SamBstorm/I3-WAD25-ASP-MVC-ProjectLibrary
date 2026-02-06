@@ -13,6 +13,7 @@ namespace ProjectLibrary.DAL.Entities
         public string? Biography { get; set; }
         public byte? ReadingSkill { get; set; }
         public bool NewsLetterSubscribed { get; set; }
+        public Guid? FavoriteBook { get; set; }
         public DateTime RegisteredDate { get; set; }
         public DateTime? DisabledDate { get; set; }
     }

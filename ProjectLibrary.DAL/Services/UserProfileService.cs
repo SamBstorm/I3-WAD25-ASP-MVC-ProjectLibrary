@@ -64,17 +64,28 @@ namespace ProjectLibrary.DAL.Services
 
             using (SqlCommand command = _connection.CreateCommand())
             {
-                command.CommandText = "SP_UserProfile_Insert";
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue(nameof(UserProfile.LastName), entity.LastName);
-                command.Parameters.AddWithValue(nameof(UserProfile.FirstName), entity.FirstName);
-                command.Parameters.AddWithValue(nameof(UserProfile.BirthDate), entity.BirthDate);
-                command.Parameters.AddWithValue(nameof(UserProfile.Biography), (object?)entity.Biography ?? DBNull.Value);
-                command.Parameters.AddWithValue(nameof(UserProfile.ReadingSkill), (object?)entity.ReadingSkill ?? DBNull.Value);
-                command.Parameters.AddWithValue(nameof(UserProfile.NewsLetterSubscribed), entity.NewsLetterSubscribed);
-                _connection.Open();
-                return (Guid)command.ExecuteScalar();
-                _connection.Close();
+                try
+                {
+                    command.CommandText = "SP_UserProfile_Insert";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("userid", entity.UserProfileId);
+                    command.Parameters.AddWithValue(nameof(UserProfile.LastName), entity.LastName);
+                    command.Parameters.AddWithValue(nameof(UserProfile.FirstName), entity.FirstName);
+                    command.Parameters.AddWithValue(nameof(UserProfile.BirthDate), entity.BirthDate);
+                    command.Parameters.AddWithValue(nameof(UserProfile.Biography), (object?)entity.Biography ?? DBNull.Value);
+                    command.Parameters.AddWithValue(nameof(UserProfile.ReadingSkill), (object?)entity.ReadingSkill ?? DBNull.Value);
+                    command.Parameters.AddWithValue(nameof(UserProfile.NewsLetterSubscribed), entity.NewsLetterSubscribed);
+                    _connection.Open();
+                    return (Guid)command.ExecuteScalar();
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    _connection.Close();
+                }
             }
 
         }
@@ -110,6 +121,30 @@ namespace ProjectLibrary.DAL.Services
                 _connection.Close();
             }
 
+        }
+
+        public void SetFavoriteBook(Guid userProfileId, Guid? bookId)
+        {
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                try
+                {
+                    command.CommandText = "SP_UserProfile_SetFavoriteBook";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue(nameof(bookId), (object?)bookId ?? DBNull.Value);
+                    command.Parameters.AddWithValue(nameof(userProfileId), userProfileId);
+                    _connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    _connection.Close();
+                }
+            }
         }
     }
 }
