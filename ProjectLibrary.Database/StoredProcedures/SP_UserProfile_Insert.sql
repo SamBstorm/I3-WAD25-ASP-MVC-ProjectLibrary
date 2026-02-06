@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[SP_UserProfile_Insert]
+﻿CREATE PROCEDURE [dbo].[SP_UserProfile_Insert]	
+	@userid UNIQUEIDENTIFIER,
 	@lastname NVARCHAR(32),
 	@firstname NVARCHAR(32),
 	@birthdate DATE,
@@ -10,6 +11,7 @@ BEGIN
 	SET NOCOUNT ON
 	INSERT 
 		INTO [UserProfile](
+			[UserProfileId],
 			[LastName],
 			[FirstName],
 			[BirthDate],
@@ -18,6 +20,7 @@ BEGIN
 			[NewsLetterSubscribed])
 		OUTPUT [inserted].[UserProfileId]
 		VALUES (
+			@userid,
 			@lastname,
 			@firstname,
 			@birthdate,
