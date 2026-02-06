@@ -1,4 +1,7 @@
-﻿@model ProjectLibrary.ASPMVC.Models.Book.DetailsViewModel
+﻿@using ProjectLibrary.ASPMVC.Handlers
+@inject RentSessionManager rentSession
+
+@model ProjectLibrary.ASPMVC.Models.Book.DetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -36,11 +39,20 @@
         </dd>
     </dl>
 </div>
+@if (rentSession.ContainsBook(Model.BookId))
+{
+    <form method="post" asp-action="Remove" asp-controller="Rent" asp-route-BookId="@Model.BookId">
+        <button type="submit" class="btn btn-outline-dark">Retirer</button>
+    </form>
+}
+else
+{
 <form method="post" asp-action="Add" asp-controller="Rent" asp-route-BookId="@Model.BookId">
     @* Si pas d'attribut asp-route-###, alors passer par un input hidden *@
     @* <input type="hidden" name="BookId" value="@Model.BookId" /> *@
     <button type="submit" class="btn btn-outline-secondary">Emprunter</button>
-</form>
+</form>   
+}
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>

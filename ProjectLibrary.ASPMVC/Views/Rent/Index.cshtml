@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<ProjectLibrary.ASPMVC.Models.Rent.ListItemViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Panier";
 }
 
-<h1>Index</h1>
+<h1>Panier</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Index" asp-controller="Book">Ajouter un livre?</a>
 </p>
 <table class="table">
     <thead>
@@ -25,15 +25,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                <a asp-action="Details" asp-controller="Book" asp-route-id="@item.BookId">@item.Title</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RentDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <form method="post" asp-controller="Rent" asp-action="Remove" asp-route-BookId="@item.BookId">
+                    <button type="submit" class="btn btn-outline-dark">Retirer</button>
+                </form>
             </td>
         </tr>
 }

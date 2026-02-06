@@ -1,5 +1,6 @@
 ﻿@using ProjectLibrary.ASPMVC.Handlers
 @inject UserSessionManager userSession
+@inject RentSessionManager rentSession
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +46,18 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Les profiles</a>
                             </li>
+                            @if (rentSession.HaveARent)
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Rent" asp-action="Index">Panier (@rentSession.RentCount)</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index">Panier vide</a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Se déconnecter</a>
                             </li>

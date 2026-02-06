@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectLibrary.ASPMVC.Handlers;
+using ProjectLibrary.ASPMVC.Handlers.Filters;
 using ProjectLibrary.ASPMVC.Mappers;
 using ProjectLibrary.ASPMVC.Models.Rent;
 using ProjectLibrary.Common.Repositories;
@@ -19,6 +20,7 @@ namespace ProjectLibrary.ASPMVC.Controllers
             _rentSessionManager = rentSessionManager;
         }
 
+        [TypeFilter<HaveRentFilter>]
         public IActionResult Index()
         {
             IEnumerable<ListItemViewModel> model = _rentSessionManager.RentCart.Values.Select(val => val.ToListItem());
@@ -35,6 +37,22 @@ namespace ProjectLibrary.ASPMVC.Controllers
                 BLL.Entities.Book bookToRent = _bookService.Get(bookId);
                 //Sauvegarde du livre dans la session
                 _rentSessionManager.AddBook(bookId, bookToRent.Title);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                return RedirectToAction(nameof(Index), "Home");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Remove(Guid bookId)
+        {
+            try
+            { 
+                //Supprimer le livre dans la session
+                _rentSessionManager.RemoveBook(bookId);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)

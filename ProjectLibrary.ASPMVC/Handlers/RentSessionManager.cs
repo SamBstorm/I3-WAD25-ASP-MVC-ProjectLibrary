@@ -22,6 +22,19 @@ namespace ProjectLibrary.ASPMVC.Handlers
             }
         }
 
+        public bool HaveARent
+        {
+            get
+            {
+                return RentCart.Count > 0;
+            }
+        }
+
+        public int RentCount
+        {
+            get => RentCart.Count;
+        }
+
         public RentSessionManager(IHttpContextAccessor httpContextAccessor)
         {
             _session = httpContextAccessor.HttpContext.Session;
@@ -38,5 +51,20 @@ namespace ProjectLibrary.ASPMVC.Handlers
             RentCart = rentCart;
         }
 
+        public void RemoveBook(Guid bookId)
+        {
+            Dictionary<Guid, RentBookInfos> rentCart = RentCart;
+            if (!rentCart.ContainsKey(bookId))
+            {
+                throw new InvalidOperationException("Le livre ne fait pas partie de votre panier");
+            }
+            rentCart.Remove(bookId);
+            RentCart = rentCart;
+        }
+
+        public bool ContainsBook(Guid bookId)
+        {
+            return RentCart.ContainsKey(bookId);
+        }
     }
 }
