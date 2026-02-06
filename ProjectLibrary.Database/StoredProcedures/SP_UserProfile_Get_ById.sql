@@ -9,6 +9,7 @@ AS
 				[Biography],
 				[ReadingSkill],
 				[NewsLetterSubscribed],
+				[FavoriteBook],
 				[RegisteredDate],
 				[DisabledDate]
 			FROM [UserProfile]
