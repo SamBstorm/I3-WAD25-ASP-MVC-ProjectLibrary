@@ -1,4 +1,6 @@
-﻿namespace ProjectLibrary.ASPMVC.Mappers
+﻿using ProjectLibrary.BLL.Entities;
+
+namespace ProjectLibrary.ASPMVC.Mappers
 {
     public static class Mapper
     {
@@ -152,6 +154,16 @@
             return new BLL.Entities.User(entity.Email,entity.Password);
         }
         #endregion
-
+        #region Rent
+        public static Models.Rent.ListItemViewModel ToListItem (this Models.RentBookInfos entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new Models.Rent.ListItemViewModel(){
+                BookId= entity.BookId,
+                Title = entity.Title,
+                RentDate = entity.RentDate
+            };
+        }
+        #endregion
     }
 }

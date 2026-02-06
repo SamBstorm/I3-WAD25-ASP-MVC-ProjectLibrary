@@ -36,6 +36,11 @@
         </dd>
     </dl>
 </div>
+<form method="post" asp-action="Add" asp-controller="Rent" asp-route-BookId="@Model.BookId">
+    @* Si pas d'attribut asp-route-###, alors passer par un input hidden *@
+    @* <input type="hidden" name="BookId" value="@Model.BookId" /> *@
+    <button type="submit" class="btn btn-outline-secondary">Emprunter</button>
+</form>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>

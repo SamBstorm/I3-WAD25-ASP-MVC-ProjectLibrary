@@ -22,6 +22,7 @@ namespace ProjectLibrary.ASPMVC
             builder.Services.AddHttpContextAccessor();
                 // Ajout d'injection de dépendance pour une accessibilité simplifié de notre session
             builder.Services.AddScoped<UserSessionManager>();
+            builder.Services.AddScoped<RentSessionManager>();
 
             // Configuration des cookies de sessions
             builder.Services.AddDistributedMemoryCache();
