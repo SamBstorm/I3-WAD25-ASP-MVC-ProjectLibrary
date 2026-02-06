@@ -89,6 +89,7 @@
     <Build Include="StoredProcedures\SP_Category_Get_ByBook.sql" />
     <Build Include="StoredProcedures\SP_Book_Add_Category.sql" />
     <Build Include="StoredProcedures\SP_Book_Remove_Category.sql" />
+    <Build Include="StoredProcedures\SP_Category_Update.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.Main.sql" />
