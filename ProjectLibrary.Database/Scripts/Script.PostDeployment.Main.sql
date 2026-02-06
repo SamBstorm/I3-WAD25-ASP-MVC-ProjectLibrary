@@ -9,6 +9,7 @@ Modèle de script de post-déploiement
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+:r .\Script.PostDeployment.Category.sql
 :r .\Script.PostDeployment.Book.sql
 :r .\Script.PostDeployment.User.sql
 :r .\Script.PostDeployment.UserProfile.sql
