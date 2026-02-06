@@ -108,5 +108,65 @@ namespace ProjectLibrary.DAL.Services
                 _connection.Close();
             }
         }
+
+        public IEnumerable<Book> GetByCategory(int categoryId)
+        {
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText = "SP_Book_Get_ByCategory";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue(nameof(categoryId), categoryId);
+                _connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    while (reader.Read())
+                    {
+                        yield return reader.ToBook();
+                    }
+                }
+            }
+        }
+
+        public void AddCategory(Guid bookId, int categoryId)
+        {
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                try
+                {
+                    command.CommandText = "SP_Book_Add_Category";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue(nameof(bookId), bookId);
+                    command.Parameters.AddWithValue(nameof(categoryId), categoryId);
+                    _connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch(Exception ex) { throw ex; }
+                finally
+                {
+                    _connection.Close();
+                }
+            }
+        }
+
+        public void RemoveCategory(Guid bookId, int categoryId)
+        {
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                try
+                {
+                    command.CommandText = "SP_Book_Remove_Category";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue(nameof(bookId), bookId);
+                    command.Parameters.AddWithValue(nameof(categoryId), categoryId);
+                    _connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex) { throw ex; }
+                finally
+                {
+                    _connection.Close();
+                }
+            }
+        }
     }
 }

@@ -53,5 +53,15 @@ namespace ProjectLibrary.DAL.Mappers
                 DisabledDate = (record[nameof(User.DisabledDate)] is DBNull) ? null : (DateTime?)record[nameof(User.DisabledDate)],
             };
         }
+    
+        public static Category ToCategory (this IDataRecord record)
+        {
+            if (record is null) throw new ArgumentNullException(nameof(record));
+            return new Category()
+            {
+                CategoryId = (int)record[nameof(Category.CategoryId)],
+                CategoryName = (string)record[nameof(Category.CategoryName)]
+            };
+        }
     }
 }

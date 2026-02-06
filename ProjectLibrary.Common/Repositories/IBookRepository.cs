@@ -4,12 +4,10 @@ using System.Text;
 
 namespace ProjectLibrary.Common.Repositories
 {
-    public interface IBookRepository<TBook>
+    public interface IBookRepository<TBook> : ICRUDRepository<TBook, Guid>
     {
-        public IEnumerable<TBook> Get();
-        public TBook Get(Guid bookId);
-        public Guid Create(TBook entity);
-        public void Update(Guid bookId, TBook entity);
-        public void Delete(Guid bookId);
+        public IEnumerable<TBook> GetByCategory(int categoryId);
+        public void AddCategory(Guid bookId, int categoryId);
+        public void RemoveCategory(Guid bookId, int categoryId);
     }
 }
