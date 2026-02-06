@@ -23,7 +23,8 @@ namespace ProjectLibrary.ASPMVC.Controllers
         [TypeFilter<HaveRentFilter>]
         public IActionResult Index()
         {
-            IEnumerable<ListItemViewModel> model = _rentSessionManager.RentCart.Values.Select(val => val.ToListItem());
+            /*IEnumerable<ListItemViewModel> model = _rentSessionManager.RentCart.Values.Select(val => val.ToListItem());*/
+            IEnumerable<ListItemViewModel> model = _rentSessionManager.RentCart.Keys.Select(key => _bookService.Get(key).ToRentListItem());
             return View(model);
         }
 

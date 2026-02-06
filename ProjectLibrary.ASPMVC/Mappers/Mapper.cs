@@ -164,6 +164,17 @@ namespace ProjectLibrary.ASPMVC.Mappers
                 RentDate = entity.RentDate
             };
         }
+
+        public static Models.Rent.ListItemViewModel ToRentListItem(this BLL.Entities.Book entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new Models.Rent.ListItemViewModel()
+            {
+                BookId = entity.BookId,
+                Title = entity.Title,
+                RentDate = DateTime.Now
+            };
+        }
         #endregion
     }
 }
