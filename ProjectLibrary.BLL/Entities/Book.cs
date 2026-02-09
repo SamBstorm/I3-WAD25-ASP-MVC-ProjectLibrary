@@ -29,6 +29,7 @@ namespace ProjectLibrary.BLL.Entities
         public DateTime RegisteredDate { get; private set; }
         private DateTime? _disabledDate;
         public bool IsActive { get { return _disabledDate is null; } }
+        public IEnumerable<Category> Categories { get; set; }
 
         public Book(Guid bookId, string title, string? author, string? isbn, DateTime releaseDate, DateTime registeredDate, DateTime? disabledDate)
         {

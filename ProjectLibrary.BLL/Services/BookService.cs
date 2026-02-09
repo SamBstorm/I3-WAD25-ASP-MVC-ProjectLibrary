@@ -11,10 +11,14 @@ namespace ProjectLibrary.BLL.Services
     public class BookService : IBookRepository<Book>
     {
         private readonly IBookRepository<DAL.Entities.Book> _dalService;
+        private readonly ICategoryRepository<Category> _categoryService;
 
-        public BookService(IBookRepository<DAL.Entities.Book> dalService)
+        public BookService(
+            IBookRepository<DAL.Entities.Book> dalService, 
+            ICategoryRepository<Category> categoryService)
         {
             _dalService = dalService;
+            _categoryService = categoryService;
         }
 
         public IEnumerable<Book> Get()
@@ -24,7 +28,8 @@ namespace ProjectLibrary.BLL.Services
 
         public Book Get(Guid bookId)
         {
-            return _dalService.Get(bookId).ToBLL();
+            IEnumerable<Category> categories = _categoryService.GetByBook(bookId);
+            return _dalService.Get(bookId).ToBLL(categories);
         }
 
         public Guid Create(Book entity)
@@ -40,6 +45,21 @@ namespace ProjectLibrary.BLL.Services
         public void Delete(Guid bookId)
         {
             _dalService.Delete(bookId);
+        }
+
+        public IEnumerable<Book> GetByCategory(int categoryId)
+        {
+            return _dalService.GetByCategory(categoryId).Select(dal => dal.ToBLL());
+        }
+
+        public void AddCategory(Guid bookId, int categoryId)
+        {
+            _dalService.AddCategory(bookId, categoryId);
+        }
+
+        public void RemoveCategory(Guid bookId, int categoryId)
+        {
+            _dalService.RemoveCategory(bookId, categoryId);
         }
     }
 }

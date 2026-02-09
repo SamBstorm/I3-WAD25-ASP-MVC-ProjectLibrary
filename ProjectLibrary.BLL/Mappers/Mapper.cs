@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectLibrary.BLL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,7 +11,7 @@ namespace ProjectLibrary.BLL.Mappers
         public static BLL.Entities.Book ToBLL(this DAL.Entities.Book entity)
         {
             if (entity is null) throw new ArgumentNullException(nameof(entity));
-            return new BLL.Entities.Book(
+            BLL.Entities.Book book = new BLL.Entities.Book(
                 entity.BookId,
                 entity.Title,
                 entity.Author,
@@ -19,6 +20,13 @@ namespace ProjectLibrary.BLL.Mappers
                 entity.RegisteredDate,
                 entity.DisabledDate
                 );
+            return book;
+        }
+        public static BLL.Entities.Book ToBLL(this DAL.Entities.Book entity, IEnumerable<Category> categories)
+        {
+            BLL.Entities.Book book = entity.ToBLL();
+            book.Categories = categories;
+            return book;
         }
 
         public static DAL.Entities.Book ToDAL(this BLL.Entities.Book entity)
@@ -101,6 +109,28 @@ namespace ProjectLibrary.BLL.Mappers
                 DisabledDate = entity.DisabledDate
                 };
         }
+        #endregion
+
+        #region Category
+
+        public static BLL.Entities.Category ToBLL (this DAL.Entities.Category entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new BLL.Entities.Category(
+                entity.CategoryId,
+                entity.CategoryName
+                );
+        }
+
+        public static DAL.Entities.Category ToDAL(this BLL.Entities.Category entity)
+        {
+            if (entity is null) throw new ArgumentNullException(nameof(entity));
+            return new DAL.Entities.Category() {
+                CategoryId = entity.CategoryId,
+                CategoryName = entity.CategoryName
+                };
+        }
+
         #endregion
     }
 }
