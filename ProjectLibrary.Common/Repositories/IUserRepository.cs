@@ -8,5 +8,8 @@ namespace ProjectLibrary.Common.Repositories
     {
         public Guid Create(TUser entity);
         public Guid CheckPassword(string email, string password);
+        public bool CheckIsAdministrator(Guid userId);
+        public void SetAsAdministrator(Guid userId);
+        public void RemoveAsAdministrator(Guid userId);
     }
 }

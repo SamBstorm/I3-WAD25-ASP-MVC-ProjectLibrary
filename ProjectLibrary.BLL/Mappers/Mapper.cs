@@ -88,7 +88,7 @@ namespace ProjectLibrary.BLL.Mappers
         #endregion
 
         #region User
-        public static BLL.Entities.User ToBLL(this DAL.Entities.User entity)
+        public static BLL.Entities.User ToBLL(this DAL.Entities.User entity, bool isAdministrator)
         {
             if (entity is null) throw new ArgumentNullException(nameof(entity));
             return new BLL.Entities.User(
@@ -96,7 +96,8 @@ namespace ProjectLibrary.BLL.Mappers
                 entity.Email,
                 entity.Password,
                 entity.RegisteredDate,
-                entity.DisabledDate);
+                entity.DisabledDate,
+                isAdministrator);
         }
         public static DAL.Entities.User ToDAL(this BLL.Entities.User entity)
         {

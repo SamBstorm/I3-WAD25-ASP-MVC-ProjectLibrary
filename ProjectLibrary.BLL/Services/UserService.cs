@@ -16,6 +16,11 @@ namespace ProjectLibrary.BLL.Services
             _dalService = dalService;
         }
 
+        public bool CheckIsAdministrator(Guid userId)
+        {
+            return _dalService.CheckIsAdministrator(userId);
+        }
+
         public Guid CheckPassword(string email, string password)
         {
             return _dalService.CheckPassword(email, password);
@@ -24,6 +29,16 @@ namespace ProjectLibrary.BLL.Services
         public Guid Create(User entity)
         {
             return _dalService.Create(entity.ToDAL());
+        }
+
+        public void RemoveAsAdministrator(Guid userId)
+        {
+            _dalService.RemoveAsAdministrator(userId);
+        }
+
+        public void SetAsAdministrator(Guid userId)
+        {
+            _dalService.SetAsAdministrator(userId);
         }
     }
 }

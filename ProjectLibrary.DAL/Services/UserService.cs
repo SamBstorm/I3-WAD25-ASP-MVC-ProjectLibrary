@@ -17,6 +17,29 @@ namespace ProjectLibrary.DAL.Services
             _connection = connection;
         }
 
+        public bool CheckIsAdministrator(Guid userId)
+        {
+            try
+            {
+                using (SqlCommand command = _connection.CreateCommand())
+                {
+                    command.CommandText = "SP_User_CheckAsAdministrator";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue(nameof(userId), userId);
+                    _connection.Open();
+                    return userId == (Guid)command.ExecuteScalar();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+
         public Guid CheckPassword(string email, string password)
         {
             using (SqlCommand command = _connection.CreateCommand())
@@ -41,6 +64,32 @@ namespace ProjectLibrary.DAL.Services
                 command.Parameters.AddWithValue(nameof(User.Password), entity.Password);
                 _connection.Open();
                 return (Guid)command.ExecuteScalar();
+                _connection.Close();
+            }
+        }
+
+        public void RemoveAsAdministrator(Guid userId)
+        {
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText = "SP_User_RemoveAsAdministrator";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue(nameof(userId), userId);
+                _connection.Open();
+                command.ExecuteNonQuery();
+                _connection.Close();
+            }
+        }
+
+        public void SetAsAdministrator(Guid userId)
+        {
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText = "SP_User_SetAsAdministrator";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue(nameof(userId), userId);
+                _connection.Open();
+                command.ExecuteNonQuery();
                 _connection.Close();
             }
         }
