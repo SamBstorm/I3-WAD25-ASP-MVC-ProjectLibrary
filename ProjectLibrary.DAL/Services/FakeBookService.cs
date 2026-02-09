@@ -10,6 +10,12 @@ namespace ProjectLibrary.DAL.Services
     public class FakeBookService : IBookRepository<Book>
     {
         private static readonly List<Book> _library = new List<Book>();
+
+        public void AddCategory(Guid bookId, int categoryId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Guid Create(Book entity)
         {
             entity.BookId = Guid.NewGuid();
@@ -32,6 +38,16 @@ namespace ProjectLibrary.DAL.Services
         public Book Get(Guid bookId)
         {
             return _library.SingleOrDefault(b => b.BookId == bookId);
+        }
+
+        public IEnumerable<Book> GetByCategory(int categoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveCategory(Guid bookId, int categoryId)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Guid bookId, Book entity)

@@ -25,7 +25,8 @@ namespace ProjectLibrary.ASPMVC.Mappers
                 Title = entity.Title,
                 Author = entity.Author,
                 ISBN = entity.ISBN,
-                ReleaseDate = entity.ReleaseDate
+                ReleaseDate = entity.ReleaseDate,
+                Categories = entity.Categories.Select(c => c.CategoryName)
             };
         }
 

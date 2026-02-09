@@ -15,5 +15,7 @@ namespace ProjectLibrary.ASPMVC.Models.Book
         public string? ISBN { get; set; }
         [DisplayName("Date de parution :")]
         public DateTime ReleaseDate { get; set; }
+        [DisplayName("Catégories :")]
+        public IEnumerable<string> Categories { get; set; }
     }
 }
