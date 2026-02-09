@@ -6,7 +6,7 @@ using ProjectLibrary.Common.Repositories;
 
 namespace ProjectLibrary.ASPMVC.Controllers
 {
-    [TypeFilter<RequiredAuthenticationFilter>]
+    [TypeFilter<AdministratorFilter>]
     public class UserProfileController : Controller
     {
         private readonly IUserProfileRepository<BLL.Entities.UserProfile> _userProfileService;

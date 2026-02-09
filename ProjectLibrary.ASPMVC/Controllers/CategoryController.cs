@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectLibrary.ASPMVC.Handlers.Filters;
 using ProjectLibrary.BLL.Entities;
 using ProjectLibrary.Common.Repositories;
 
 namespace ProjectLibrary.ASPMVC.Controllers
 {
+    [TypeFilter<AdministratorFilter>]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository<BLL.Entities.Category> _categoryService;

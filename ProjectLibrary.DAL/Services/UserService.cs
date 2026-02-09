@@ -23,7 +23,7 @@ namespace ProjectLibrary.DAL.Services
             {
                 using (SqlCommand command = _connection.CreateCommand())
                 {
-                    command.CommandText = "SP_User_CheckAsAdministrator";
+                    command.CommandText = "SP_User_CheckIsAdministrator";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue(nameof(userId), userId);
                     _connection.Open();

@@ -1,5 +1,7 @@
 ﻿@using ProjectLibrary.ASPMVC.Handlers
+@using ProjectLibrary.Common.Repositories
 @inject UserSessionManager userSession
+@inject IUserRepository<ProjectLibrary.BLL.Entities.User> userService
 @inject RentSessionManager rentSession
 
 <!DOCTYPE html>
@@ -43,9 +45,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index">Les livres</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Les profiles</a>
-                            </li>
+                            @if (userService.CheckIsAdministrator((Guid)userSession.UserId))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Les profiles</a>
+                                </li>
+                            }
                             @if (rentSession.HaveARent)
                             {
                             <li class="nav-item">
