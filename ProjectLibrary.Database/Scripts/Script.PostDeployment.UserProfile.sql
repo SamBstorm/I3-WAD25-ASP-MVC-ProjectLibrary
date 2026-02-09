@@ -17,6 +17,8 @@ EXEC SP_UserProfile_Insert
 	@biography = N'Lecteur novice, fan de fantasy et de science-fiction.',
 	@readingSkill = 1, 
 	@newsletterSubscribed = 0;
+
+EXEC SP_User_SetAsAdministrator @userid = @id
 	
 INSERT INTO @userIds([UserId])
 EXEC SP_User_Insert @email = N'michael@mylibrary.be', @password = N'Test1234='

@@ -90,6 +90,10 @@
     <Build Include="StoredProcedures\SP_Book_Add_Category.sql" />
     <Build Include="StoredProcedures\SP_Book_Remove_Category.sql" />
     <Build Include="StoredProcedures\SP_Category_Update.sql" />
+    <Build Include="Tables\Administrator.sql" />
+    <Build Include="StoredProcedures\SP_User_SetAsAdministrator.sql" />
+    <Build Include="StoredProcedures\SP_User_RemoveAsAdministrator.sql" />
+    <Build Include="StoredProcedures\SP_User_CheckIsAdministrator.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.Main.sql" />
