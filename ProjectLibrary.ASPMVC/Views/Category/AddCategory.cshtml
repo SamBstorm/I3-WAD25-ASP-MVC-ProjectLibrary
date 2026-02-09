@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ProjectLibrary.BLL.Entities.Category>
+
+@{
+    IEnumerable<SelectListItem> options = Model.Select(bll => new SelectListItem(bll.CategoryName, bll.CategoryId.ToString()));
+}
+
+<h1>Quelle catégorie voulez-vous ajouter?</h1>
+
+<form method="post">
+    <select name="categoryId" asp-items="options"></select>
+    <button type="Submit" class="btn">Ajouter</button>
+</form>

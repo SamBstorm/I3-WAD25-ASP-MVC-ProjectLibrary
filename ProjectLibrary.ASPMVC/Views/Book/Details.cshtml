@@ -38,6 +38,12 @@
                     <span>, </span>
                 }
             }
+            <form method="post" asp-action="categoryManager" asp-controller="category" asp-route-bookId="@Model.BookId">
+                <div class="btn-group">
+                    <input name="submit" type="submit" class="btn btn-secondary" value="+">
+                    <input name="submit" type="submit" class="btn btn-dark" value="-">
+                </div>
+            </form>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ISBN)
